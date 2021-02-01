@@ -1,4 +1,4 @@
-# Mixed-Messages
+# Mixed Messages
 ## A message generator program
 ### Requirements
 * Every time a user runs a program, they should get a new, randomized output. 
