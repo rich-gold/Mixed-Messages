@@ -1,7 +1,12 @@
 // List of all countries in a simple list / array.
 // Sorted alphabetical by country name (special characters on bottom)
 
+//Geography quiz question generator
 
+function randomSelector(array) {
+	const randomElement = Math.floor(Math.random()*array.length);
+	return randomElement;
+}
 
 function countryList() {
 	const country = [
@@ -255,8 +260,37 @@ function countryList() {
 	"Zimbabwe",
 	"Åland Islands"
 ];
-const index = [Math.floor(Math.random()*country.length)];
-return country[index];
-}; // Returns random country
+	const index0 = randomSelector(country);
+	const index1 = randomSelector(country);
+	return [country[index0], country[index1]];
+}; // Returns 2 random countries
 
-console.log(countryList());
+function conundrum() {
+	const property = [
+		{metric: "bigger population",	compare: true},
+		{metric: "bigger land mass", compare: true},
+		{metric: "higher number of COVID cases", compare: true},
+		{metric: "higher-ranking football team", compare: true},
+		{metric: "larger GDP per capita", compare: true},
+		{metric: "most Olympic gold medals", compare: false}
+	];
+	return property[randomSelector(property)];
+}
+
+function wording() {
+	let question = '';
+	switch(conundrum().compare){
+		case true:
+			question = `Which country out of ${countryList()[0]} or ${countryList()[1]} has the ${conundrum().metric}?`;
+			break;
+		default:
+			question = 'This must be the boring Olympic question...';
+			console.log(conundrum().metric)
+	}
+	return question;
+}
+
+for (let i = 1; i < 11; i++){
+	console.log(`Question ${i}: ` + wording());
+
+}
