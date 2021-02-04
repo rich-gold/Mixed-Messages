@@ -1,6 +1,10 @@
 // List of all countries in a simple list / array.
 // Sorted alphabetical by country name (special characters on bottom)
-const countryList = [
+
+
+
+function countryList() {
+	const country = [
 	"Afghanistan",
 	"Albania",
 	"Algeria",
@@ -251,3 +255,8 @@ const countryList = [
 	"Zimbabwe",
 	"Åland Islands"
 ];
+const index = [Math.floor(Math.random()*country.length)];
+return country[index];
+}; // Returns random country
+
+console.log(countryList());
