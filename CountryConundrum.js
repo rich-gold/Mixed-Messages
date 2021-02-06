@@ -8,8 +8,8 @@ function randomSelector(array) {
 	return randomElement;
 }
 
-function countryList() {
-	const country = [
+function country() {
+	const countryArray = [
 	"Afghanistan",
 	"Albania",
 	"Algeria",
@@ -260,28 +260,33 @@ function countryList() {
 	"Zimbabwe",
 	"Åland Islands"
 ];
-	const index0 = randomSelector(country);
-	const index1 = randomSelector(country);
-	return [country[index0], country[index1]];
+	return countryArray[randomSelector(countryArray)];
 }; // Returns 2 random countries
 
 function conundrum() {
 	const property = [
-		{metric: "bigger population",	compare: true},
-		{metric: "bigger land mass", compare: true},
-		{metric: "higher number of COVID cases", compare: true},
-		{metric: "higher-ranking football team", compare: true},
-		{metric: "larger GDP per capita", compare: true},
-		{metric: "most Olympic gold medals", compare: false}
+		{metric: "What is the capital city of", options: 1},
+		{metric: "Name a national langugage of", options: 1},
+		{metric: "Name the monarch/political leader of", options: 1},
+		{metric: "In which continent would you find", options: 1},
+		{metric: "bigger population",	options: 2},
+		{metric: "bigger land mass", options: 2},
+		{metric: "higher number of COVID cases", options: 2},
+		{metric: "higher-ranking football team", options: 2},
+		{metric: "larger GDP per capita", options: 2},
+		{metric: "most Olympic gold medals", options: 2}
 	];
 	return property[randomSelector(property)];
 }
 
 function wording() {
-	let question = '';
-	switch(conundrum().compare){
-		case true:
-			question = `Which country out of ${countryList()[0]} or ${countryList()[1]} has the ${conundrum().metric}?`;
+	let q = conundrum();
+	switch(q.options){
+		case 1:
+			question = `${q.metric} ${country()}?`;
+			break;
+		case 2:
+			question = `Which country out of ${country()} or ${country()} has the ${q.metric}?`;
 			break;
 		default:
 			question = 'This must be the boring Olympic question...';
@@ -290,7 +295,20 @@ function wording() {
 	return question;
 }
 
-for (let i = 1; i < 11; i++){
-	console.log(`Question ${i}: ` + wording());
-
+function create(Question, Points) {
+	this.Question = Question;
+	this.Points = Points;
 }
+
+var quiz = {};
+const numberOfQuestions = 10;
+let totalPoints = 0;
+for (let i = 1; i <= numberOfQuestions; i++){
+	quiz[i] = new create(wording(), Math.ceil(Math.random()*5));
+	totalPoints += quiz[i].Points;
+};
+
+
+
+console.table(quiz);
+console.log(`Total Points Available: ${totalPoints} \n`)
